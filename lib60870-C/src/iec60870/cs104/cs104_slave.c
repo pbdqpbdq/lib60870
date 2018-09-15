@@ -1965,6 +1965,14 @@ _sendACT_TERM(IMasterConnection self, CS101_ASDU asdu)
     _sendASDU(self, asdu);
 }
 
+static void
+_close(IMasterConnection self)
+{
+    MasterConnection con = (MasterConnection) self->object;
+
+    MasterConnection_close(con);
+}
+
 static CS101_AppLayerParameters
 _getApplicationLayerParameters(IMasterConnection self)
 {
@@ -2006,6 +2014,7 @@ MasterConnection_create(CS104_Slave slave, Socket socket, MessageQueue lowPrioQu
         self->iMasterConnection.sendASDU = _sendASDU;
         self->iMasterConnection.sendACT_CON = _sendACT_CON;
         self->iMasterConnection.sendACT_TERM = _sendACT_TERM;
+        self->iMasterConnection.close = _close;
 
 #if (CONFIG_USE_THREADS == 1)
         self->sentASDUsLock = Semaphore_create(1);

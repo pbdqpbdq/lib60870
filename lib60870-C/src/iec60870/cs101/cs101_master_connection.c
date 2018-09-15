@@ -41,6 +41,12 @@ IMasterConnection_sendACT_TERM(IMasterConnection self, CS101_ASDU asdu)
     self->sendACT_TERM(self, asdu);
 }
 
+void
+IMasterConnection_close(IMasterConnection self)
+{
+    self->close(self);
+}
+
 CS101_AppLayerParameters
 IMasterConnection_getApplicationLayerParameters(IMasterConnection self)
 {
